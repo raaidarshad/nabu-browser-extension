@@ -1,18 +1,17 @@
 <script>
 
 	let articles;
+	let targetUrl;
 
 	browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 		const tab = tabs[0];
 
-  		browser.runtime.sendMessage({"tabId": tab.id});
-
-		// at this point, the popup should show "loading..."
+  		browser.runtime.sendMessage({'tabId': tab.id});
 		});
 
 	function messageReceived(msg) {
 		articles = msg.rows;
-		// if no rows, "could not find similar news articles"
+		targetUrl = msg.url;
 	}
 
 	browser.runtime.onMessage.addListener(messageReceived);
@@ -22,10 +21,10 @@
 	{#if articles}
 		{#if articles.length > 0}
 			{#each articles as article, idx}
-				<div class="article-row">
-					<span class="article-number">{(idx+1 <10 ? `0${idx+1}` : idx+1)} </span>
-					<a href={article.url} class="article-headline" target="_blank">{article.title}</a>
-					<p class="article-source">{article.source} - {article.date.split('T')[0]}</p>
+				<div class='article-row'>
+					<span class='article-number'>{(idx+1 <10 ? `0${idx+1}` : idx+1)} </span>
+					<a href={article.url} class='article-headline' target='_blank'>{article.title}</a>
+					<p class='article-source'>{article.source} - {article.date.split('T')[0]}</p>
 					<hr/>
 				</div>
 			{/each}

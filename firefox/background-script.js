@@ -26,7 +26,7 @@ function handleOnMessage(message, sender) {
       console.error(err)
     });
   } else if (message.tabId) {
-    browser.runtime.sendMessage({"rows": posts[message.tabId]["rows"]});
+    browser.runtime.sendMessage(posts[message.tabId]);
   } else {
     handleRemoved(sender.tab.id);
     browser.browserAction.setBadgeText({text: ""});
@@ -50,7 +50,7 @@ function handleNewTab(tabId) {
     // not sure about JS safety here, so using two separate if statements
     if (posts[tabId]['rows'].length > 0) {
       browser.browserAction.setBadgeText({text: "" + posts[tabId]['rows'].length});
-      browser.browserAction.setBadgeBackgroundColor({color: '#666666'});
+      browser.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
       browser.browserAction.setBadgeTextColor({color: '#FFFFFF'});
       browser.browserAction.enable(tabId);
     } else {
