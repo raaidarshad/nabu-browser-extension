@@ -6,16 +6,19 @@ browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 	const tab = tabs[0];
 	const url = new URL(tab.url);
 
-    browser.runtime.sendMessage({"tabId": tab.id});
+  browser.runtime.sendMessage({"tabId": tab.id});
 
-	content.innerHTML = loading();
+  const loading = document.createElement('div');
+  waiting.setAttribute('id', 'loading');
+  waiting.setAttribute('value', 'loading...')
+	content.appendChild(loading);
 });
 
-const loading = () => `
-  <div id="loading">
-    loading...
-  </div>
-`;
+// const loading = () => `
+//   <div id="loading">
+//     loading...
+//   </div>
+// `;
 
 /*
  ** Articles = [Article]
