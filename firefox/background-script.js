@@ -47,10 +47,15 @@ function handleWindowFocusChanged(windowId) {
 
 function handleNewTab(tabId) {
   if(posts[tabId]) {
-    browser.browserAction.setBadgeText({text: "" + posts[tabId]["rows"].length});
-    browser.browserAction.setBadgeBackgroundColor({color: "#666666"});
-    browser.browserAction.setBadgeTextColor({color: "#FFFFFF"});
-    browser.browserAction.enable(tabId);
+    // not sure about JS safety here, so using two separate if statements
+    if (posts[tabId]['rows'].length > 0) {
+      browser.browserAction.setBadgeText({text: "" + posts[tabId]['rows'].length});
+      browser.browserAction.setBadgeBackgroundColor({color: '#666666'});
+      browser.browserAction.setBadgeTextColor({color: '#FFFFFF'});
+      browser.browserAction.enable(tabId);
+    } else {
+      browser.browserAction.setBadgeText({text: ""});
+    };
   } else {
     browser.browserAction.setBadgeText({text: ""});
     browser.browserAction.disable(tabId);
