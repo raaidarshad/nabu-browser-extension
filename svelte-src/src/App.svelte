@@ -1,4 +1,5 @@
 <script>
+	import browser from "webextension-polyfill";
 
 	let articles;
 	let targetUrl;
@@ -25,11 +26,13 @@
 					<span class='article-number'>{(idx+1 <10 ? `0${idx+1}` : idx+1)} </span>
 					<a href={article.url} class='article-headline' target='_blank'>{article.title}</a>
 					<p class='article-source'>{article.source} - {article.date.split('T')[0]}</p>
-					<hr/>
+					{#if articles.length !== idx+1}
+						<hr/>
+					{/if}
 				</div>
 			{/each}
 		{:else}
-			<div>Could not find similar news articles.</div>
+			<div>Could not find similar news articles. See <a href='https://www.nabu.news/blog/sources'>here</a> for supported sources so far.</div>
 		{/if}
 	{:else}
 		<div id='loading'>loading...</div>
