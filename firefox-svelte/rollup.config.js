@@ -34,7 +34,7 @@ export default [{
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: `../${process.env.browser}/popup/popup.js`
+		file: `../firefox/popup/popup.js`
 	},
 	plugins: [
 		svelte({
@@ -73,28 +73,5 @@ export default [{
 	watch: {
 		clearScreen: false
 	}
-},
-{
-    input: "src/background.js",
-    output: {
-      sourcemap: true,
-      format: "iife",
-      file: `../${process.env.browser}/background-script.js`,
-    },
-    plugins: [resolve(), commonjs()],
-    watch: {
-      clearScreen: false,
-    },
-  },
-  {
-    input: "src/content.js",
-    output: {
-      sourcemap: true,
-      format: "iife",
-      file: `../${process.env.browser}/content-script.js`,
-    },
-    plugins: [resolve(), commonjs()],
-    watch: {
-      clearScreen: false,
-    },
-  }];
+}
+];

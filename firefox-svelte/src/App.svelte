@@ -1,6 +1,4 @@
 <script>
-	import browser from "webextension-polyfill";
-
 	let articles;
 	let targetUrl;
 

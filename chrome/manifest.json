@@ -1,6 +1,6 @@
 {
 
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Nabu",
     "version": "0.1",
   
@@ -12,16 +12,15 @@
       "48": "icons/favicon-48x48.png"
     },
 
-    "browser_action": {
+    "action": {
       "default_icon": "icons/favicon-48x48.png",
       "default_title": "Nabu",
       "default_popup": "popup/popup.html"
     },
 
-    "permissions": [
-      "*://*.nabu.news/*",
-      "tabs"
-    ],
+    "host_permissions": ["*://*.nabu.news/*"],
+
+    "permissions": ["tabs"],
   
     "content_scripts": [
       {
@@ -31,7 +30,7 @@
     ],
 
     "background": {
-      "scripts": ["background.js"]
+      "service_worker": "background.js"
     }
   
   }

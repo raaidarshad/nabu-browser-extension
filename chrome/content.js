@@ -1,5 +1,3 @@
-import browser from "webextension-polyfill";
-
 // todo consider pulling these from DB in some way so it auto-updates as the db does (would need caching)
 const tlds = [
     "www.nytimes.com",
@@ -18,7 +16,7 @@ const tlds = [
 ];
 
 if (tlds.includes(window.location.host)) {
-    browser.runtime.sendMessage({"url": window.location.href});
+    chrome.runtime.sendMessage({"url": window.location.href});
 } else {
-    browser.runtime.sendMessage({"url": ""})
+    chrome.runtime.sendMessage({"url": ""})
 }
