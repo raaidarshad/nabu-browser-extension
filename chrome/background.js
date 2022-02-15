@@ -17,9 +17,7 @@ function handleOnMessage(message, sender) {
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
     .then((data) => {
-        console.log(sender.tab.id);
         posts[sender.tab.id] = {"url": message.url, "rows": data.rows};
-        console.log(posts);
         handleNewTab(sender.tab.id);
     })
     .catch((err) => {
@@ -27,7 +25,6 @@ function handleOnMessage(message, sender) {
       console.error(err)
     });
   } else if (message.tabId) {
-    console.log('got here');
     chrome.runtime.sendMessage(posts[message.tabId]);
   } else {
     handleRemoved(sender.tab.id);
