@@ -15,7 +15,7 @@ From inside the `firefox` directory, run `zip -r -FS ../nabu-firefox.zip * --exc
 
 From inside the top-level `chrome-svelte` directory, run `npm install` then `npm run build` to create `popup.js` in `chrome/popup` (uses svelte and rollup). The rest of the firefox extension code is under the `chrome` directory, written in plain html/css/js.
 
-From inside the `chrome` directory, run `zip -r -FS ../nabu-firefox.zip * --exclude '*.git*'` to create the zip file to upload (todo: create a super simple script that just runs that command).
+From inside the `chrome` directory, run `zip -r -FS ../nabu-chrome.zip * --exclude '*.git*'` to create the zip file to upload (todo: create a super simple script that just runs that command).
 
 ## Why is the code separate?
 For starters, there are different manifest versions supported/required by Chrome and Firefox. So `manifest.json` for each has to be different, with different fields allowed, with `v3` for Chrome and `v2` for Firefox.
