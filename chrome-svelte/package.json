@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build-firefox": "rollup -c --environment browser:firefox",
-    "build-chrome": "rollup -c --environment browser:chrome",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear"
   },

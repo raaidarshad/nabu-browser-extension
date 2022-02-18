@@ -14,12 +14,18 @@ function handleOnMessage(message, sender) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'User-Agent': 'firefox-extesion'
       },
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
     .then((data) => {
         posts[sender.tab.id] = {"url": message.url, "rows": data.rows};
-        handleNewTab(sender.tab.id);
+        browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+          const tab = tabs[0];
+          if (tab.id == sender.tab.id) {
+            handleNewTab(tab.id);
+          };
+        });
     })
     .catch((err) => {
       if(typeof err === 'string') err = new Error(err)

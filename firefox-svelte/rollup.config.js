@@ -28,13 +28,13 @@ function serve() {
 	};
 }
 
-export default {
+export default [{
 	input: 'src/main.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: `../${process.env.browser}/popup/popup.js`
+		file: `../firefox/popup/popup.js`
 	},
 	plugins: [
 		svelte({
@@ -73,4 +73,5 @@ export default {
 	watch: {
 		clearScreen: false
 	}
-};
+}
+];

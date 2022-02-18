@@ -1,17 +1,18 @@
 <script>
-
 	let articles;
 	let targetUrl;
 
 	browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 		const tab = tabs[0];
+		targetUrl = tab.url;
 
   		browser.runtime.sendMessage({'tabId': tab.id});
 		});
 
 	function messageReceived(msg) {
-		articles = msg.rows;
-		targetUrl = msg.url;
+		if (msg.url == targetUrl) {
+			articles = msg.rows;
+		}
 	}
 
 	browser.runtime.onMessage.addListener(messageReceived);
@@ -25,11 +26,13 @@
 					<span class='article-number'>{(idx+1 <10 ? `0${idx+1}` : idx+1)} </span>
 					<a href={article.url} class='article-headline' target='_blank'>{article.title}</a>
 					<p class='article-source'>{article.source} - {article.date.split('T')[0]}</p>
-					<hr/>
+					{#if articles.length !== idx+1}
+						<hr/>
+					{/if}
 				</div>
 			{/each}
 		{:else}
-			<div>Could not find similar news articles.</div>
+			<div>Could not find similar news articles. See <a href='https://www.nabu.news/blog/sources'>here</a> for supported sources so far.</div>
 		{/if}
 	{:else}
 		<div id='loading'>loading...</div>

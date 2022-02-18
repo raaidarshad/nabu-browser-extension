@@ -16,8 +16,7 @@ const tlds = [
 ];
 
 if (tlds.includes(window.location.host)) {
-    browser.runtime.sendMessage({"url": window.location.href});
+    chrome.runtime.sendMessage({"url": window.location.href});
 } else {
-    browser.runtime.sendMessage({"url": ""})
+    chrome.runtime.sendMessage({"url": ""})
 }
-
