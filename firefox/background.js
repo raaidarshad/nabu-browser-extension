@@ -14,7 +14,6 @@ function handleOnMessage(message, sender) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'firefox-extension'
       },
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
