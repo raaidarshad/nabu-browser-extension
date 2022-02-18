@@ -4,13 +4,15 @@
 
 	chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 		const tab = tabs[0];
+		targetUrl = tab.url;
 
 		chrome.runtime.sendMessage({'tabId': tab.id});
 		});
 
 	function messageReceived(msg) {
-		articles = msg.rows;
-		targetUrl = msg.url;
+		if (msg.url == targetUrl) {
+			articles = msg.rows;
+		}
 	}
 
 	chrome.runtime.onMessage.addListener(messageReceived);
