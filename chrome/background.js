@@ -17,7 +17,9 @@ function handleOnMessage(message, sender) {
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
     .then((data) => {
+        postsCache(!posts);
         posts[sender.tab.id] = {"url": message.url, "rows": data.rows};
+        chrome.storage.local.set({'posts': posts});
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
           const tab = tabs[0];
           if (tab.id == sender.tab.id) {
@@ -30,6 +32,7 @@ function handleOnMessage(message, sender) {
       console.error(err)
     });
   } else if (message.tabId) {
+    postsCache(!posts);
     chrome.runtime.sendMessage(posts[message.tabId]);
   } else {
     handleRemoved(sender.tab.id);
@@ -45,11 +48,14 @@ function handleRemoved(tabId) {
 function handleWindowFocusChanged(windowId) {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
     const tab = tabs[0];
-    handleNewTab(tab.id);
+    if (tab) {
+      handleNewTab(tab.id);
+    };
   });
 }
 
 function handleNewTab(tabId) {
+  postsCache(!posts[tabId]);
   if(posts[tabId]) {
     // not sure about JS safety here, so using two separate if statements
     if (posts[tabId]['rows'].length > 0) {
@@ -62,6 +68,14 @@ function handleNewTab(tabId) {
   } else {
     chrome.action.setBadgeText({text: ""});
     chrome.action.disable(tabId);
+  };
+}
+
+function postsCache(condition) {
+  if (condition) {
+    chrome.storage.local.get(['posts'], function(result) {
+      posts = result.posts;
+    });
   };
 }
 

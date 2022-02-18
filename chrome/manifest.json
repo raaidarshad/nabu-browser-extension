@@ -20,7 +20,7 @@
 
     "host_permissions": ["*://*.nabu.news/*"],
 
-    "permissions": ["tabs"],
+    "permissions": ["tabs", "storage"],
   
     "content_scripts": [
       {
