@@ -13,6 +13,7 @@ function handleOnMessage(message, sender) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'User-Agent': 'chrome-extesion'
       },
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
