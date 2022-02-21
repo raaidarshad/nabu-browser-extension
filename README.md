@@ -1,6 +1,9 @@
 # nabu-browser-extension
 Browser extension that lists articles about the same topic as the article you are currently viewing.
 
+[Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/nabu/)
+[Chrome extension](https://chrome.google.com/webstore/detail/nabu/bgmcmbjhfdnfaplfiiphlefclhhhnajb)
+
 ## Build
 
 Requires node/npm.
