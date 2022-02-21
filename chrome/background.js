@@ -94,7 +94,9 @@ function handleNewTab(tabId) {
 function postsCache(condition) {
   if (condition) {
     chrome.storage.local.get(['posts'], function(result) {
-      posts = result.posts;
+      if (result.posts) {
+        posts = result.posts;
+      };
     });
   };
 }
