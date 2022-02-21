@@ -28,3 +28,11 @@ Next, Firefox unpretentiously uses `browser` to access the various APIs needed t
 Another thing is that Chrome requires service workers, while Firefox allows for background scripts. This extension persists a small amount of data, which is easy to do with a mutating object (a simple `let posts = {}`) in a script, but the service worker architecture requires use of the storage API to persist data in the instances where a service worker idles and loses anything in the global state.
 
 As a result, I found it easier to simply write two seperate extensions. Will this be annoying to update? Yes, as I'll have to update everything twice. Do I want to spend more time getting both to work from the same source code? No, I just want to ship it. Et voila, duplicated code. Thanks, Google, for always looking out for the developer experience.
+
+## Privacy
+
+I hate trackers, targeted ads, etc. I strongly encourage everyone to use ad-blockers, a VPN, and all the other wonderful tools people have made so as to not put up with the shoddy state of many websites. I am entirely okay with websites/services tracking use data, without tracking who is doing the using.
+
+To that end, the only information this extension sends to the nabu.news servers is the URL of the article you are viewing, and it only does so when you are on one of the supported websites (see [here](https://www.nabu.news/blog/sources) for a current list). The servers need that one piece of information to provide you with the list of similar articles.
+
+The only other thing I bother tracking is the user-agent from the HTTP request header, and I really only do that to know if the request is coming from the browser extension on Firefox, on Chrome, or the website itself. That's it.
