@@ -1,20 +1,33 @@
 let posts = {};
+let allowedHosts = [];
+fetchAllowedHosts();
 
 function handleActivated(activeInfo) {
-
   handleNewTab(activeInfo.tabId);
+}
+
+function fetchAllowedHosts() {
+  fetch('https://www.nabu.news/sources', {
+    mode: 'no-cors'
+  }).then((r) => r.json())
+  .then((data) => {
+    allowedHosts = data.rows.map( item => item.url);
+  });
+}
+
+function isAllowedHost(host) {
+  return allowedHosts.includes(host);
 }
 
 function handleOnMessage(message, sender) {
 
-  if (message.url) {
+  if (message.url && isAllowedHost(message.host)) {
     const inputUrl = new URL(message.url);
     fetch('https://www.nabu.news/submitSearch', {
       mode: 'no-cors',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'firefox-extesion'
       },
       body: JSON.stringify({ target: inputUrl })
     }).then((r) => r.json())
